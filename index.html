@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>林默 · 设计工程师作品集</title>
+  <meta name="description" content="林默的设计工程师作品集：品牌、产品与交互体验。" />
+  <style>
+    :root {
+      --bg: #0b0d10;
+      --bg-raised: #11151a;
+      --ink: #f1f4f6;
+      --muted: #9aa3ad;
+      --faint: #68727d;
+      --line: rgba(255,255,255,.12);
+      --line-soft: rgba(255,255,255,.07);
+      --accent: #8ee6c0;
+      --accent-2: #93a7ff;
+      --warm: #f4bc83;
+      --max: 1120px;
+      --shadow: 0 18px 60px rgba(0,0,0,.28);
+    }
+    [data-theme="light"] {
+      --bg: #f4f5f1;
+      --bg-raised: #ffffff;
+      --ink: #171a1d;
+      --muted: #606971;
+      --faint: #8b949d;
+      --line: rgba(17,24,29,.15);
+      --line-soft: rgba(17,24,29,.08);
+      --accent: #147b5a;
+      --accent-2: #5266c4;
+      --warm: #a46522;
+      --shadow: 0 18px 60px rgba(17,24,29,.12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; min-width: 320px; color: var(--ink); background: var(--bg);
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55; text-rendering: optimizeLegibility;
+      background-image: radial-gradient(var(--line-soft) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    body::before { content:""; position: fixed; inset: 0; pointer-events:none; background: linear-gradient(180deg, transparent 55%, var(--bg) 94%); z-index:-1; }
+    a { color: inherit; text-decoration: none; }
+    .page { width: min(100% - 40px, var(--max)); margin: 0 auto; }
+    .topbar { position: sticky; top: 16px; z-index: 10; display:flex; align-items:center; justify-content:space-between; padding-top: 16px; }
+    .zone { width: 190px; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+    .zone strong { color: var(--ink); font-weight: 500; }
+    .nav-shell { display:flex; align-items:center; gap: 4px; padding: 5px; border: 1px solid var(--line); border-radius: 17px; background: color-mix(in srgb, var(--bg-raised) 80%, transparent); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
+    .nav-link, .theme { display:inline-flex; align-items:center; gap: 7px; padding: 9px 12px; border-radius: 12px; color: var(--muted); font-size: 13px; transition: .2s ease; }
+    .nav-link:hover, .nav-link.active, .theme:hover { color: var(--ink); background: var(--line-soft); }
+    .nav-link .dot { width: 5px; height:5px; border-radius:50%; background: currentColor; opacity:.8; }
+    .divider { width: 1px; height: 20px; background: var(--line); margin: 0 3px; }
+    .theme { border: 0; cursor:pointer; background: transparent; font: inherit; }
+    .theme svg { width: 15px; height: 15px; }
+    .mobile-menu { display:none; }
+    .hero { min-height: 710px; display:grid; align-content:center; padding: 150px 0 100px; }
+    .eyebrow { display:flex; align-items:center; gap: 10px; color: var(--accent); font-size: 13px; letter-spacing:.08em; text-transform: uppercase; }
+    .eyebrow::before { content:""; width: 9px; height:9px; border: 1px solid currentColor; border-radius: 50%; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 13%, transparent); }
+    h1 { max-width: 920px; margin: 24px 0 30px; font-size: clamp(54px, 9vw, 114px); line-height: .98; letter-spacing: -.075em; font-weight: 600; text-wrap: balance; }
+    h1 em { color: var(--muted); font-style: normal; }
+    .hero-copy { max-width: 540px; color: var(--muted); font-size: 17px; }
+    .hero-foot { display:flex; align-items:end; justify-content:space-between; gap: 30px; margin-top: 70px; }
+    .scroll-note { display:flex; align-items:center; gap: 11px; color: var(--faint); font-size: 12px; }
+    .scroll-note span { display:inline-block; width: 35px; height:1px; background: var(--faint); }
+    .hero-link { color: var(--ink); font-size: 14px; border-bottom: 1px solid var(--line); padding-bottom: 5px; }
+    section { padding: 110px 0; border-top: 1px solid var(--line-soft); }
+    .section-head { display:flex; align-items:baseline; justify-content:space-between; gap: 20px; margin-bottom: 44px; }
+    .section-kicker { color: var(--faint); font-size: 12px; letter-spacing:.12em; text-transform:uppercase; }
+    h2 { margin: 0; font-size: clamp(30px, 5vw, 50px); line-height: 1.05; letter-spacing: -.055em; font-weight: 550; }
+    .section-intro { max-width: 450px; margin: 0; color: var(--muted); font-size: 15px; }
+    .work-grid { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 22px; }
+    .project { display:flex; flex-direction:column; min-height: 430px; border:1px solid var(--line); border-radius: 14px; overflow:hidden; background: var(--bg-raised); transition: transform .3s ease, box-shadow .3s ease; }
+    .project:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .project-art { position:relative; min-height: 275px; overflow:hidden; padding: 20px; display:flex; align-items:flex-end; }
+    .project-art::after { content:""; position:absolute; inset:0; background: linear-gradient(145deg, transparent 25%, rgba(0,0,0,.34)); }
+    .art-a { background: radial-gradient(circle at 24% 32%, #ffdb9b, transparent 28%), linear-gradient(130deg, #6b4ee6, #c878bc 54%, #f2a36a); }
+    .art-b { background: radial-gradient(circle at 75% 22%, #eef3ff, transparent 25%), linear-gradient(135deg, #18353c, #2b9f89 48%, #a8dbc3); }
+    .art-c { background: radial-gradient(circle at 46% 30%, #f7d7a5, transparent 23%), linear-gradient(145deg, #1a273c, #415b9c 48%, #b56a62); }
+    .art-d { background: radial-gradient(circle at 78% 38%, #f3f4e9, transparent 18%), linear-gradient(140deg, #d66450, #8e2e52 53%, #25263c); }
+    .art-label { position:relative; z-index:1; font-size: clamp(36px, 5vw, 60px); letter-spacing: -.06em; color:#fff; line-height: .9; }
+    .art-card { position:absolute; z-index:1; right: 22px; top: 22px; width: 112px; height: 150px; border: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.13); backdrop-filter: blur(7px); transform: rotate(8deg); }
+    .art-card::before, .art-card::after { content:""; position:absolute; background: rgba(255,255,255,.7); }
+    .art-card::before { width: 40px; height: 5px; left: 14px; top: 15px; }
+    .art-card::after { width: 74px; height: 1px; left: 14px; bottom: 18px; }
+    .project-body { display:flex; flex:1; flex-direction:column; justify-content:space-between; padding: 20px 21px 22px; }
+    .project-title { font-size: 20px; letter-spacing:-.03em; }
+    .project-desc { margin: 8px 0 20px; color: var(--muted); font-size: 14px; }
+    .project-meta { display:flex; justify-content:space-between; color: var(--faint); font-size: 12px; }
+    .about-grid { display:grid; grid-template-columns: 1.05fr 1fr; gap: 80px; align-items:start; }
+    .about-lead { margin: 0; font-size: clamp(27px, 4vw, 44px); line-height: 1.12; letter-spacing: -.055em; }
+    .about-lead mark { color: var(--accent); background:none; }
+    .about-copy { color: var(--muted); font-size: 15px; }
+    .facts { display:grid; grid-template-columns: repeat(2,1fr); gap: 22px 30px; margin-top: 36px; }
+    .fact { border-top: 1px solid var(--line); padding-top: 10px; }
+    .fact b { display:block; margin-bottom: 4px; color:var(--ink); font-size: 13px; font-weight:500; }
+    .fact span { color:var(--muted); font-size: 13px; }
+    .notes { display:grid; gap: 0; }
+    .note { display:grid; grid-template-columns: 90px 1fr auto; align-items:center; gap: 20px; padding: 19px 0; border-top:1px solid var(--line); }
+    .note:last-child { border-bottom:1px solid var(--line); }
+    .note time { color: var(--faint); font-size: 12px; }
+    .note h3 { margin:0; font-size: 16px; font-weight:500; letter-spacing:-.02em; }
+    .note p { margin: 4px 0 0; color:var(--muted); font-size: 13px; }
+    .arrow { color:var(--faint); font-size:18px; transition: transform .2s ease; }
+    .note:hover .arrow { transform: translateX(4px); color:var(--accent); }
+    .gallery-grid { display:grid; grid-template-columns: repeat(4,1fr); grid-auto-rows: 160px; gap: 12px; }
+    .gallery-item { position:relative; border:1px solid var(--line); border-radius: 10px; overflow:hidden; background:var(--bg-raised); }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; background: linear-gradient(145deg,#6b4ee6,#e89f8d); }
+    .gallery-item:nth-child(2) { grid-column: span 2; background: linear-gradient(135deg,#1f313b,#74c0ab); }
+    .gallery-item:nth-child(3) { background: linear-gradient(145deg,#f0bd81,#b14b71); }
+    .gallery-item:nth-child(4) { background: linear-gradient(145deg,#27355c,#7e99dd); }
+    .gallery-item:nth-child(5) { background: linear-gradient(145deg,#c65e49,#f0d7aa); }
+    .gallery-item:nth-child(6) { background: linear-gradient(145deg,#1a2026,#5b6977); }
+    .gallery-item span { position:absolute; left: 14px; bottom: 11px; color:#fff; font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
+    .contact { display:flex; align-items:end; justify-content:space-between; gap: 30px; }
+    .contact h2 { max-width: 600px; }
+    .contact-action { display:inline-flex; align-items:center; gap: 12px; padding: 14px 18px; border:1px solid var(--ink); border-radius: 8px; font-size:14px; transition: .2s ease; }
+    .contact-action:hover { color: var(--bg); background: var(--ink); }
+    footer { display:flex; justify-content:space-between; gap: 20px; padding: 30px 0 42px; color:var(--faint); font-size:12px; }
+    .socials { display:flex; gap: 18px; }
+    .socials a:hover { color:var(--ink); }
+    @media (max-width: 760px) {
+      .page { width: min(100% - 28px, var(--max)); }
+      .topbar { top: 10px; }
+      .zone { display:none; }
+      .nav-shell { margin-left:auto; }
+      .nav-link { padding: 9px 10px; }
+      .nav-link .label { display:none; }
+      .mobile-menu { display:block; }
+      .hero { min-height: 680px; padding-top: 130px; }
+      h1 { font-size: clamp(50px, 16vw, 88px); }
+      .hero-copy { font-size: 16px; }
+      .hero-foot { margin-top: 54px; align-items:start; flex-direction:column; }
+      section { padding: 76px 0; }
+      .section-head { display:block; margin-bottom: 30px; }
+      .section-intro { margin-top: 18px; }
+      .work-grid, .about-grid { grid-template-columns: 1fr; gap: 18px; }
+      .project { min-height: 410px; }
+      .about-grid { gap: 48px; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 140px; }
+      .gallery-item:nth-child(1), .gallery-item:nth-child(2) { grid-column: span 2; }
+      .contact { align-items:start; flex-direction:column; }
+      footer { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="zone"><strong>Shanghai</strong><br />UTC +08:00</div>
+      <nav class="nav-shell" aria-label="主导航">
+        <a class="nav-link active" href="#top"><span class="dot"></span><span class="label">首页</span></a>
+        <a class="nav-link" href="#about"><span class="label">关于</span></a>
+        <a class="nav-link" href="#work"><span class="label">作品</span></a>
+        <a class="nav-link" href="#notes"><span class="label">随笔</span></a>
+        <a class="nav-link" href="#gallery"><span class="label">图集</span></a>
+        <span class="divider"></span>
+        <button class="theme" id="themeToggle" aria-label="切换主题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20.3 15.3A8.4 8.4 0 0 1 8.7 3.7 8.6 8.6 0 1 0 20.3 15.3Z"/></svg>
+        </button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="eyebrow">Independent designer · 2026</div>
+        <h1 id="hero-title">把复杂的东西，<em>做得清楚又有趣。</em></h1>
+        <p class="hero-copy">你好，我是林默，一名设计工程师。我在品牌、产品和代码的交叉处工作，把模糊的想法变成可以被使用、被记住的体验。</p>
+        <div class="hero-foot"><div class="scroll-note"><span></span>向下探索</div><a class="hero-link" href="#work">查看精选项目 ↘</a></div>
+      </section>
+
+      <section id="work" aria-labelledby="work-title">
+        <div class="section-head"><div><div class="section-kicker">01 / Selected work</div><h2 id="work-title">最近在做的事</h2></div><p class="section-intro">从一个小小的交互，到完整的品牌系统。每个项目都在寻找更准确的表达方式。</p></div>
+        <div class="work-grid">
+          <article class="project"><div class="project-art art-a"><div class="art-card"></div><span class="art-label">MORI</span></div><div class="project-body"><div><div class="project-title">Mori 家居 · 数字品牌</div><p class="project-desc">为一个慢生活品牌重做数字体验，让“留白”成为可感知的产品功能。</p></div><div class="project-meta"><span>品牌 / 体验</span><span>2025 ↗</span></div></div></article>
+          <article class="project"><div class="project-art art-b"><div class="art-card"></div><span class="art-label">FLOW</span></div><div class="project-body"><div><div class="project-title">Flow · 团队协作工具</div><p class="project-desc">把零散的工作流整理成一条顺畅、低压力的日常路径。</p></div><div class="project-meta"><span>产品 / 交互</span><span>2025 ↗</span></div></div></article>
+          <article class="project"><div class="project-art art-c"><div class="art-card"></div><span class="art-label">NOON</span></div><div class="project-body"><div><div class="project-title">Noon FM · 声音电台</div><p class="project-desc">一套围绕声音、时间和陪伴感展开的移动端视觉语言。</p></div><div class="project-meta"><span>视觉 / 开发</span><span>2024 ↗</span></div></div></article>
+          <article class="project"><div class="project-art art-d"><div class="art-card"></div><span class="art-label">OPEN</span></div><div class="project-body"><div><div class="project-title">Open Archive · 开放档案</div><p class="project-desc">为一座城市建立可漫游、可收藏的公共记忆入口。</p></div><div class="project-meta"><span>研究 / 网站</span><span>2024 ↗</span></div></div></article>
+        </div>
+      </section>
+
+      <section id="about" aria-labelledby="about-title"><div class="section-head"><div><div class="section-kicker">02 / About me</div><h2 id="about-title">关于我</h2></div></div><div class="about-grid"><div><p class="about-lead">我相信好设计不是装饰，而是让人更快地理解、更自然地行动。<mark>我喜欢从问题本身开始。</mark></p></div><div class="about-copy"><p>过去十年，我和不同规模的团队一起做过从 0 到 1 的产品，也做过成熟品牌的再定位。我的工作方式很简单：先倾听，再拆解，最后一起把它做出来。</p><p>现在，我以独立设计师的身份工作，也开放短期合作与顾问项目。</p><div class="facts"><div class="fact"><b>所在地</b><span>上海 / 远程</span></div><div class="fact"><b>专注领域</b><span>品牌、产品、前端</span></div><div class="fact"><b>合作方式</b><span>项目制 / 顾问</span></div><div class="fact"><b>可用语言</b><span>中文 / English</span></div></div></div></div></section>
+
+      <section id="notes" aria-labelledby="notes-title"><div class="section-head"><div><div class="section-kicker">03 / Notes</div><h2 id="notes-title">一些随笔</h2></div><p class="section-intro">记录工作之外，我如何观察、阅读和保持好奇。</p></div><div class="notes"><a class="note" href="#"><time>06.18.26</time><div><h3>为什么我总是先做一个很丑的版本</h3><p>关于速度、反馈，以及允许自己犯错。</p></div><span class="arrow">↗</span></a><a class="note" href="#"><time>05.02.26</time><div><h3>数字产品里的“安静时刻”</h3><p>减少一点提示，也许能换来更多专注。</p></div><span class="arrow">↗</span></a><a class="note" href="#"><time>03.27.26</time><div><h3>从一张旧海报开始的城市漫步</h3><p>收集路边被忽略的字体和颜色。</p></div><span class="arrow">↗</span></a></div></section>
+
+      <section id="gallery" aria-labelledby="gallery-title"><div class="section-head"><div><div class="section-kicker">04 / Visual diary</div><h2 id="gallery-title">视觉日记</h2></div><p class="section-intro">工作台、路上看到的东西，以及一些暂时没有答案的实验。</p></div><div class="gallery-grid"><div class="gallery-item"><span>01 / Light study</span></div><div class="gallery-item"><span>02 / Material</span></div><div class="gallery-item"><span>03 / Walk</span></div><div class="gallery-item"><span>04 / Type</span></div><div class="gallery-item"><span>05 / Found</span></div><div class="gallery-item"><span>06 / Quiet</span></div></div></section>
+
+      <section class="contact" aria-labelledby="contact-title"><div><div class="section-kicker">05 / Say hello</div><h2 id="contact-title">有一个想法？<br />我们聊聊。</h2></div><a class="contact-action" href="mailto:hello@linmo.studio">hello@linmo.studio <span>↗</span></a></section>
+    </main>
+    <footer><span>© 2026 Lin Mo. Built with curiosity.</span><div class="socials"><a href="#">Instagram</a><a href="#">Are.na</a><a href="#">LinkedIn</a></div></footer>
+  </div>
+  <script>
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('portfolio-theme');
+    if (saved) root.dataset.theme = saved;
+    toggle.addEventListener('click', () => {
+      const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+      root.dataset.theme = next;
+      localStorage.setItem('portfolio-theme', next);
+    });
+    const links = [...document.querySelectorAll('.nav-link')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id));
+    }), { rootMargin: '-35% 0px -55% 0px' });
+    sections.forEach(section => observer.observe(section));
+  </script>
+</body>
+</html>
