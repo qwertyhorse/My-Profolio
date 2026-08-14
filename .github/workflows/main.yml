@@ -1,30 +1,66 @@
-name: Build website
+name: One-click deploy to Tencent Cloud
 
 on:
   workflow_dispatch:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+permissions:
+  contents: read
 
+concurrency:
+  group: production-portfolio
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate website
+    runs-on: ubuntu-latest
     steps:
-      - name: Download code
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: npm
+      - name: Validate static entry point
+        run: |
+          test -s index.html
+          grep -qi '<!doctype html' index.html
+          grep -qi '<title>' index.html
 
-      - name: Install dependencies
-        run: npm ci
+  deploy:
+    name: Deploy to Tencent Cloud
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.TENCENT_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.TENCENT_SSH_KNOWN_HOSTS }}
+        run: |
+          test -n "$SSH_PRIVATE_KEY"
+          test -n "$SSH_KNOWN_HOSTS"
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/tencent_deploy
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/tencent_deploy ~/.ssh/known_hosts
 
-      - name: Build website
-        run: npm run build
+      - name: Pull latest code on server
+        env:
+          SERVER_HOST: ${{ secrets.TENCENT_SERVER_HOST }}
+          SERVER_USER: ${{ secrets.TENCENT_SERVER_USER }}
+        run: |
+          test -n "$SERVER_HOST"
+          test -n "$SERVER_USER"
+          ssh -i ~/.ssh/tencent_deploy -o BatchMode=yes "$SERVER_USER@$SERVER_HOST" \
+            "git -C /home/ubuntu/apps/portfolio fetch origin master"
+          ssh -i ~/.ssh/tencent_deploy -o BatchMode=yes "$SERVER_USER@$SERVER_HOST" \
+            "git -C /home/ubuntu/apps/portfolio merge --ff-only origin/master"
 
-      - name: Save build files
-        uses: actions/upload-artifact@v4
-        with:
-          name: website-build
-          path: dist/
+      - name: Verify deployment
+        env:
+          SERVER_HOST: ${{ secrets.TENCENT_SERVER_HOST }}
+          SERVER_USER: ${{ secrets.TENCENT_SERVER_USER }}
+        run: |
+          ssh -i ~/.ssh/tencent_deploy -o BatchMode=yes "$SERVER_USER@$SERVER_HOST" \
+            "test -s /home/ubuntu/apps/portfolio/index.html"
+          ssh -i ~/.ssh/tencent_deploy -o BatchMode=yes "$SERVER_USER@$SERVER_HOST" \
+            "curl --fail --silent --show-error http://127.0.0.1/ >/dev/null"
